@@ -1,14 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const httpResponse = require('../helpers/responses');
+const { httpResponse} = require('../helpers/responses');
 
 router.get('/getAll', (request, response) => {
-    response.send(httpResponse(
-        true,
-        'All Users',
-        null,
-        200
-    ), 200);
+    serviceResponse = {
+        'isSuccess': true,
+        'message': 'All Users!',
+        'data': [],
+        'statusCode': 200
+    };
+    response.send(httpResponse(serviceResponse), serviceResponse.statusCode);
 });
 
 module.exports = router;
