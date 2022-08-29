@@ -47,8 +47,8 @@ socketIoServer.on('disconnect', (socket) => {
 });
 
 /**
- * Start Express Server Listening
  * Enable Express Server to use bodyParser
+ * Start Express Server Listening
  * */
 expressServer.use(express.json());
 expressServer.listen(environments.SERVER_PORT);
