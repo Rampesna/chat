@@ -4,11 +4,11 @@ const errorsRoutes = require('./routes/errors');
 const envoirments = require('dotenv').config().parsed;
 
 const server = express();
+server.use(express.json());
 server.listen(envoirments.SERVER_PORT);
 
 server.use('/user', userRoutes);
 server.use('/', errorsRoutes);
-
 
 server.get('*', (request, response) => {
     response.redirect('/404');
@@ -17,4 +17,3 @@ server.get('*', (request, response) => {
 server.get('/', (req, res) => {
     res.end('Home Page!');
 });
-

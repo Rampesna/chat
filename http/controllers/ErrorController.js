@@ -1,4 +1,4 @@
-const {httpResponse} = require("../helpers/responses");
+const {httpResponse} = require("../../helpers/responses");
 
 exports._404 = (request, response) => {
     serviceResponse = {

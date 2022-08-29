@@ -1,14 +1,3 @@
-function httpResponse(
-    serviceResponse
-) {
-    return {
-        'isSuccess': serviceResponse.isSuccess,
-        'message': serviceResponse.message,
-        'data': serviceResponse.data,
-        'statusCode': serviceResponse.statusCode,
-    };
-}
-
 function serviceResponse(
     isSuccess,
     message,
@@ -24,6 +13,5 @@ function serviceResponse(
 }
 
 module.exports = {
-    httpResponse,
     serviceResponse
 };

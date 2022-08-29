@@ -1,5 +1,5 @@
 const express = require('express');
-const ErrorController = require('../controllers/ErrorController');
+const ErrorController = require('../http/controllers/ErrorController');
 const router = express.Router();
 
 router.get('/403', ErrorController._403);
