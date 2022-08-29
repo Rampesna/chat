@@ -9,7 +9,8 @@ exports.login = async (request, response) => {
     if (validationResponse.isSuccess) {
         serviceResponse = await UserService.login(
             request.body.email,
-            request.body.password
+            request.body.password,
+            request.headers['user-agent']
         );
         response.send(serviceResponse, serviceResponse.statusCode);
     } else {
@@ -23,6 +24,7 @@ exports.getAll = async (request, response) => {
 }
 
 exports.getById = async (request, response) => {
+    console.log(request.user);
     validationResponse = GetByIdRequest(request);
     if (validationResponse.isSuccess) {
         serviceResponse = await UserService.getById(request.query.id);

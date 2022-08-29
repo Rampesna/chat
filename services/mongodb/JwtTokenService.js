@@ -11,10 +11,15 @@ class JwtTokenService extends IJwtTokenService {
         super();
     }
 
-    async generateToken(data) {
-        let token = jwt.sign(data, 'AYS_JWT_SECRET_KEY', {});
+    async generateToken(user, userAgent) {
+        let token = jwt.sign({
+            _id: user._id,
+            email: user.email,
+            name: user.name,
+        }, envoirments.JWT_SECRET_KEY);
         JwtTokenModel.create({
             token: token,
+            userAgent: userAgent,
         });
         return serviceResponse(
             true,

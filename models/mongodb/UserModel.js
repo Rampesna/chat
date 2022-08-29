@@ -7,7 +7,6 @@ mongoose.connect('mongodb://127.0.0.1:27017/chat', {
 });
 
 let UserSchema = new Schema({
-    _id: String,
     name: {
         type: String, required: [
             true, 'Name is required'
@@ -29,6 +28,5 @@ UserSchema.methods.comparePassword = function (password) {
 };
 
 let UserModel = mongoose.model('User', UserSchema);
-
 
 module.exports = UserModel;

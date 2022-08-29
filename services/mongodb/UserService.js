@@ -11,23 +11,27 @@ class UserService extends IUserService {
 
     async login(
         email,
-        password
+        password,
+        userAgent
     ) {
         var user = await UserModel.findOne({
             email: email
         });
-        console.log(user);
         if (user != null) {
             if (user.comparePassword(password)) {
-                var token = (await JwtTokenService.generateToken(user)).data;
-                return serviceResponse(
-                    true,
-                    'User logged in successfully',
-                    {
-                        token: token
-                    },
-                    200
-                );
+                var tokenResponse = (await JwtTokenService.generateToken(user, userAgent));
+                if (tokenResponse.isSuccess) {
+                    return serviceResponse(
+                        true,
+                        'User logged in successfully',
+                        {
+                            token: tokenResponse.data
+                        },
+                        200
+                    );
+                } else {
+                    return tokenResponse;
+                }
             } else {
                 return serviceResponse(
                     false,
