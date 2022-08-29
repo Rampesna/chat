@@ -1,21 +1,17 @@
-const {httpResponse} = require("../../helpers/responses");
-
 exports._404 = (request, response) => {
-    serviceResponse = {
+    response.send({
         'isSuccess': false,
         'message': 'Page not found!',
         'data': null,
         'statusCode': 404
-    };
-    response.send(httpResponse(serviceResponse), serviceResponse.statusCode);
+    }, 404);
 };
 
 exports._403 = (request, response) => {
-    serviceResponse = {
+    response.send({
         'isSuccess': false,
-        'message': 'You dont have permission to access this page!',
+        'message': 'Forbidden!',
         'data': null,
         'statusCode': 403
-    };
-    response.send(httpResponse(serviceResponse), serviceResponse.statusCode);
+    }, 403);
 };

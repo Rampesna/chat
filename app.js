@@ -1,20 +1,42 @@
+/*
+* Express Server Implementation
+* */
 const express = require('express');
+const expressServer = express();
+
+/**
+ * Http Server Implementation
+ * */
 const http = require('http');
-const userRoutes = require('./routes/user');
-const errorsRoutes = require('./routes/errors');
-const envoirments = require('dotenv').config().parsed;
+const httpServer = http.createServer(expressServer);
 
-const server = express();
-
-const httpServer = http.createServer(server);
+/**
+ * Socket.io Implementation
+ * */
 const {Server} = require("socket.io");
 const socketIoServer = new Server(httpServer);
+
+/**
+ * Environment Variables
+ * */
+const environments = require('dotenv').config().parsed;
+
+/**
+ * User Routes
+ * */
+const userRoutes = require('./routes/user');
+
+/**
+ * Error Controller
+ * */
+const ErrorController = require("./http/controllers/ErrorController");
+
+/**
+ * Start Http Server Listening
+ * */
 httpServer.listen(3000, () => {
     console.log('listening on *:3000');
 });
-
-server.use(express.json());
-server.listen(envoirments.SERVER_PORT);
 
 socketIoServer.on('connection', (socket) => {
     console.log('a user connected');
@@ -24,13 +46,16 @@ socketIoServer.on('disconnect', (socket) => {
     console.log('a user disconnected');
 });
 
-server.use('/user', userRoutes);
-server.use('/', errorsRoutes);
+/**
+ * Start Express Server Listening
+ * Enable Express Server to use bodyParser
+ * */
+expressServer.use(express.json());
+expressServer.listen(environments.SERVER_PORT);
 
-server.get('/', (req, res) => {
-    res.end('Home Page!');
-});
+expressServer.use('/user', userRoutes);
 
-server.get('*', (request, response) => {
-    response.redirect('/404');
-});
+/**
+ * Catch 404 and forward to error handler
+ * */
+expressServer.get('*', ErrorController._404);

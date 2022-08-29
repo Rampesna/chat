@@ -2,7 +2,7 @@ const {
     serviceResponse
 } = require('../../helpers/responses');
 const jwt = require('jsonwebtoken');
-const envoirments = require('dotenv').config().parsed;
+const environments = require('dotenv').config().parsed;
 
 const AuthenticationMiddleware = (
     request,
@@ -18,7 +18,7 @@ const AuthenticationMiddleware = (
         ), 401);
     }
 
-    jwt.verify(request.headers['authorization'].split(' ')[1], envoirments.JWT_SECRET_KEY, (err, decoded) => {
+    jwt.verify(request.headers['authorization'].split(' ')[1], environments.JWT_SECRET_KEY, (err, decoded) => {
         if (err) {
             return response.send(serviceResponse(
                 false,

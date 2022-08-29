@@ -4,7 +4,7 @@ const {
 const IJwtTokenService = require("../../interfaces/IJwtTokenService");
 const JwtTokenModel = require("../../models/mongodb/JwtTokenModel");
 const jwt = require('jsonwebtoken');
-const envoirments = require('dotenv').config().parsed;
+const environments = require('dotenv').config().parsed;
 
 class JwtTokenService extends IJwtTokenService {
     constructor() {
@@ -16,7 +16,7 @@ class JwtTokenService extends IJwtTokenService {
             _id: user._id,
             email: user.email,
             name: user.name,
-        }, envoirments.JWT_SECRET_KEY);
+        }, environments.JWT_SECRET_KEY);
         JwtTokenModel.create({
             token: token,
             userAgent: userAgent,
