@@ -13,8 +13,10 @@ const httpServer = http.createServer(expressServer);
 /**
  * Socket.io Implementation
  * */
-const {Server} = require("socket.io");
-const socketIoServer = new Server(httpServer);
+const {
+    socketIoConnection
+} = require('./services/socketio/SocketIoService');
+socketIoConnection(httpServer);
 
 /**
  * Environment Variables
@@ -36,14 +38,6 @@ const ErrorController = require("./http/controllers/ErrorController");
  * */
 httpServer.listen(3000, () => {
     console.log('listening on *:3000');
-});
-
-socketIoServer.on('connection', (socket) => {
-    console.log('a user connected');
-});
-
-socketIoServer.on('disconnect', (socket) => {
-    console.log('a user disconnected');
 });
 
 /**
