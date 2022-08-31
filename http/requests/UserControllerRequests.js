@@ -2,54 +2,50 @@ const {
     serviceResponse
 } = require("../../helpers/responses");
 
-function LoginRequest(
-    request
-) {
+const LoginRequest = (
+    request,
+    response,
+    next
+) => {
+    console.log(request.body);
+    console.log(request.query);
     if (!request.query.email && !request.body.email) {
-        return serviceResponse(
+        return response.send(serviceResponse(
             false,
             "Email is required",
             null,
             422
-        );
+        ), 422);
     }
 
     if (!request.query.password && !request.body.password) {
-        return serviceResponse(
+        return response.send(serviceResponse(
             false,
             "Password is required",
             null,
             422
-        );
+        ), 422);
     }
 
-    return serviceResponse(
-        true,
-        "Success",
-        null,
-        200
-    );
-}
+    next();
+};
 
-function GetByIdRequest(
-    request
-) {
+const GetByIdRequest = (
+    request,
+    response,
+    next
+) => {
     if (!request.query.id) {
-        return serviceResponse(
+        return response.send(serviceResponse(
             false,
             "Id is required",
             null,
             422
-        );
+        ), 422);
     }
 
-    return serviceResponse(
-        true,
-        "Success",
-        null,
-        200
-    );
-}
+    next();
+};
 
 module.exports = {
     GetByIdRequest,

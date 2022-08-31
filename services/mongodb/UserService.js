@@ -2,7 +2,6 @@ const {serviceResponse} = require("../../helpers/responses");
 const IUserService = require("../../interfaces/IUserService");
 const JwtTokenService = require("./JwtTokenService");
 const UserModel = require("../../models/mongodb/UserModel");
-const jwt = require('jsonwebtoken');
 
 class UserService extends IUserService {
     constructor() {
