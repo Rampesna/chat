@@ -8,6 +8,8 @@ exports.socketIoConnection = (httpServer) => {
     socketIoServer = require('socket.io')(httpServer);
     socketIoServer.on('connection', (socket) => {
 
+        console.log('User connected : ' + socket.id);
+
         socket.on('sendMessage', (data) => {
             jwt.verify(data.token, environments.JWT_SECRET_KEY, async (err, decoded) => {
                 if (!err) {
@@ -21,6 +23,10 @@ exports.socketIoConnection = (httpServer) => {
                     socketIoServer.emit('sendMessage', messageData.data);
                 }
             });
+        });
+
+        socket.on('disconnect', () => {
+            console.log('User disconnected : ' + socket.id);
         });
     });
 };

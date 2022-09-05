@@ -6,8 +6,8 @@ const {
 
 exports.login = async (request, response) => {
     serviceResponse = await UserService.login(
-        request.body.email,
-        request.body.password,
+        request.body.email || request.query.email,
+        request.body.password || request.query.password,
         request.headers['user-agent']
     );
     response.send(serviceResponse, serviceResponse.statusCode);
